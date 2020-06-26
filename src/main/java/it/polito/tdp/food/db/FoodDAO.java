@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import it.polito.tdp.food.model.Arco;
 import it.polito.tdp.food.model.Condiment;
 import it.polito.tdp.food.model.Food;
 import it.polito.tdp.food.model.Portion;
@@ -77,12 +79,9 @@ public class FoodDAO {
 	public List<Portion> listAllPortions(){
 		String sql = "SELECT * FROM portion" ;
 		try {
-			Connection conn = DBConnect.getConnection() ;
-
+			Connection conn = DBConnect.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql) ;
-			
-			List<Portion> list = new ArrayList<>() ;
-			
+			List<Portion> list = new ArrayList<>();
 			ResultSet res = st.executeQuery() ;
 			
 			while(res.next()) {
@@ -108,6 +107,62 @@ public class FoodDAO {
 		}
 
 	}
+	
+	public List<String> getVertex(int calorie){
+		String sql = "SELECT DISTINCT(portion_display_name) AS name FROM `portion` WHERE calories<? ORDER BY NAME asc" ;
+		try {
+			Connection conn = DBConnect.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql) ;
+			st.setInt(1, calorie);
+			List<String> list = new ArrayList<>();
+			ResultSet res = st.executeQuery() ;
+			
+			while(res.next()) {
+				String s= res.getString("name");
+				list.add(s);
+			}
+			
+			conn.close();
+			return list ;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null ;
+		}
+	}
+	
+	
+	public List<Arco> getEdge(int calorie){
+		String sql = "SELECT p1.portion_display_name AS v1,p2.portion_display_name AS v2, COUNT(DISTINCT p1.food_code) AS peso FROM `portion` AS p1, `portion` AS p2 WHERE p1.portion_id<>p2.portion_id AND p1.food_code=p2.food_code  GROUP BY p1.portion_display_name,p2.portion_display_name" ;
+		try {
+			Connection conn = DBConnect.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql) ;
+		
+			List<Arco> list = new ArrayList<>();
+			ResultSet res = st.executeQuery() ;
+			
+			while(res.next()) {
+				Arco a= new Arco(res.getString("v1"), res.getString("v2"), res.getInt("peso"));
+				list.add(a);
+			}
+			
+			conn.close();
+			return list ;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null ;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
