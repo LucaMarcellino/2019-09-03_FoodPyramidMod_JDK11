@@ -6,8 +6,8 @@ public class TestModel {
 		// TODO Auto-generated method stub
 
 		Model m = new Model();
-		m.creaGrafo(20);
-		System.out.print(m.getVicini("baby carrot"));
+		m.creaGrafo(10);
+		m.cercaCammino("can", 5);
 	}
 
 }

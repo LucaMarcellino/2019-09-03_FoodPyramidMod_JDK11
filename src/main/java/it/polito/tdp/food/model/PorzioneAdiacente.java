@@ -21,11 +21,11 @@ public class PorzioneAdiacente {
 	public void setPeso(int peso) {
 		this.peso = peso;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + peso;
 		result = prime * result + ((v2 == null) ? 0 : v2.hashCode());
 		return result;
 	}
@@ -38,8 +38,6 @@ public class PorzioneAdiacente {
 		if (getClass() != obj.getClass())
 			return false;
 		PorzioneAdiacente other = (PorzioneAdiacente) obj;
-		if (peso != other.peso)
-			return false;
 		if (v2 == null) {
 			if (other.v2 != null)
 				return false;

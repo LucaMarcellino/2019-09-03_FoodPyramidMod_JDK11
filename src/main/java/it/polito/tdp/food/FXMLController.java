@@ -45,7 +45,17 @@ public class FXMLController {
 
     @FXML
     void doCammino(ActionEvent event) {
-
+    	txtResult.clear();
+    	if(boxPorzioni.getValue()==null)
+    		txtResult.appendText("selezionare una porzione");
+    	int n=0;
+    	try {
+    		n= Integer.parseInt(txtCalorie.getText());
+    	}catch(NumberFormatException nfe) {
+    		txtResult.appendText("Inserire un numero intero positivo");
+    		return;
+    	}
+    	txtResult.appendText(model.cercaCammino(boxPorzioni.getValue(), n));
     }
 
     @FXML
@@ -91,5 +101,6 @@ public class FXMLController {
 
 	public void setModel(Model model) {
 		this.model = model;
+		this.txtResult.setEditable(false);
 	}
 }
