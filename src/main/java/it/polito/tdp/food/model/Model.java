@@ -65,7 +65,7 @@ public class Model {
 		parziale.add(partenza) ;
 		
 		search(parziale, 1, N);
-		String s= ("Il peso del cammino è"+pesoMax+"\n ed il cammino è:\n");
+		String s= ("Il peso del cammino è: "+pesoMax+"\nEd il cammino che parte da "+ partenza +" è:\n");
 		for(int i=0; i<camminoMax.size();i++)
 			s+=(camminoMax.get(i)+"\n");
 		return s;

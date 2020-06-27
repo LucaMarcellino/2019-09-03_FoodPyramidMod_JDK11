@@ -50,7 +50,7 @@ public class FXMLController {
     		txtResult.appendText("selezionare una porzione");
     	int n=0;
     	try {
-    		n= Integer.parseInt(txtCalorie.getText());
+    		n= Integer.parseInt(txtPassi.getText());
     	}catch(NumberFormatException nfe) {
     		txtResult.appendText("Inserire un numero intero positivo");
     		return;
